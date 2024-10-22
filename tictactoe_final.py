@@ -56,14 +56,27 @@ def draw_board():
 
 # Check if a player has won
 def check_winner():
-	for row in board:
-		if row[0] == row[3] == row[6] != ' ':
-			return row[0]
+	# Look for row match
+	if board[0][0] == board[3][0] == board[6][0] !=' ':
+		return board[0][0]
+
+	if board[0][3] == board[3][3] == board[6][3] !=' ':
+		return board[0][3]
 	
-	for col in board:
-		if col[0] == col[3] == col[6] != ' ':
-			return col[0]
+	if board[0][6] == board[3][6] == board[6][6] !=' ':
+		return board[0][6]
+
+	# Look for column match
+	if board[0][0] == board[0][3] == board[0][6] !=' ':
+		return board[0][0]
+
+	if board[3][0] == board[3][3] == board[3][6] !=' ':
+		return board[3][0]
 	
+	if board[6][0] == board[6][3] == board[6][6] !=' ':
+		return board[6][0]
+	
+	# Look for diagonal match
 	if board[0][0] == board[3][3] == board[6][6] != ' ':
 		return board[0][0]
 	
@@ -80,7 +93,7 @@ def check_draw():
 				return False
 	return True
 
-# Move the cursor based on joystick input (all coordinates move 3 steps because they can't be on grid)
+# Move the cursor based on joystick input (all coordinates move 3 steps/pixels because they can't be on grid)
 def move_cursor(direction):
 	if direction == 'up' and cursor[0][1] > 2:  #y1,y2 --
 		for i in cursor:
@@ -160,7 +173,7 @@ class TicTacToe:
 
 		# Create buttons for the game grid
 		for i in range(9):
-			button = tk.Button(self.root, text=" ", font=("Helvetica", 20), height=3, width=6,
+			button = tk.Button(self.root, text=" ", font=("Arial", 20), height=3, width=6,
 							   command=lambda i=i: self.make_move(i))
 			button.grid(row=i // 3, column=i % 3)
 			self.buttons.append(button)
